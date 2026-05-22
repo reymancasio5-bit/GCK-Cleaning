@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+                 font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+                 img-src 'self' data: https://images.unsplash.com;
+                 connect-src 'self';
+                 frame-ancestors 'none';
+                 form-action 'self';
+                 base-uri 'self';" />
+  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
+  <meta name="description" content="GCK Clean — Professional residential and commercial cleaning services in Montréal and Markham. Sparkle With Care." />
+  <meta name="robots" content="index, follow" />
+  <title>GCK Clean</title>
+
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Honeypot (hidden from humans) -->
+  <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;opacity:0;pointer-events:none;z-index:-1;">
+    <input type="text" name="website_url" autocomplete="off" tabindex="-1" />
+  </div>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="GCK Clean Home">
+        <img src="logo.png" alt="GCK Clean" width="80" height="auto" loading="eager" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu" role="list">
+        <li><a href="#services"  class="nav-link"><i class="fa-solid fa-broom"></i> Services</a></li>
+        <li><a href="#why-us"    class="nav-link"><i class="fa-solid fa-award"></i> Why Us</a></li>
+        <li><a href="#process"   class="nav-link"><i class="fa-solid fa-list-check"></i> Process</a></li>
+        <li><a href="#locations" class="nav-link"><i class="fa-solid fa-map-pin"></i> Locations</a></li>
+        <li><a href="#contact"   class="btn btn-primary nav-cta"><i class="fa-solid fa-calendar-check"></i> Get a Quote</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section id="hero" class="hero" aria-label="Hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="eyebrow">
+          <i class="fa-solid fa-leaf"></i> Professional Cleaning Services
+        </span>
+        <h1 class="hero-headline">Sparkle<br /><em>With Care.</em></h1>
+        <p class="hero-sub">
+          Trusted residential &amp; commercial cleaning across Montréal and Markham — done right, every time.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-calendar-check"></i> Book a Cleaning
+          </a>
+          <a href="tel:4372252916" class="btn btn-outline btn-lg">
+            <i class="fa-solid fa-phone"></i> Call Us
+          </a>
+        </div>
+        <div class="hero-trust">
+          <span><i class="fa-solid fa-shield-halved"></i> Fully Insured</span>
+          <span><i class="fa-solid fa-star"></i> 5-Star Service</span>
+          <span><i class="fa-solid fa-clock"></i> Flexible Hours</span>
+          <span><i class="fa-solid fa-leaf"></i> Eco-Friendly</span>
+        </div>
+      </div>
+      <div class="hero-image" aria-hidden="true">
+        <div class="hero-image-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=900&q=85&auto=format&fit=crop"
+            alt="Professional cleaning service in a bright modern home"
+            loading="eager"
+            width="900"
+            height="700"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICES ══ -->
+  <section id="services" class="section services" aria-labelledby="services-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow"><i class="fa-solid fa-broom"></i> What We Offer</span>
+        <h2 id="services-title">Our Cleaning Services</h2>
+        <p class="section-sub">From everyday upkeep to deep cleans, we've got every corner covered.</p>
+      </div>
+      <div class="services-grid">
+        <article class="service-card" tabindex="0">
+          <div class="service-icon"><i class="fa-solid fa-house"></i></div>
+          <h3>Residential Cleaning</h3>
+          <p>Regular home cleaning tailored to your schedule — weekly, bi-weekly, or monthly.</p>
+          <a href="#contact" class="card-link">Request Service <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" tabindex="0">
+          <div class="service-icon"><i class="fa-solid fa-building"></i></div>
+          <h3>Commercial Cleaning</h3>
+          <p>Office spaces, retail, and facilities kept spotless so your team can focus on what matters.</p>
+          <a href="#contact" class="card-link">Request Service <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" tabindex="0">
+          <div class="service-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <h3>Deep Cleaning</h3>
+          <p>A thorough top-to-bottom clean for move-ins, move-outs, post-renovation, or seasonal refreshes.</p>
+          <a href="#contact" class="card-link">Request Service <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" tabindex="0">
+          <div class="service-icon"><i class="fa-solid fa-hard-hat"></i></div>
+          <h3>Post-Construction</h3>
+          <p>Dust, debris, and residue removed after renovations — leaving your new space truly ready.</p>
+          <a href="#contact" class="card-link">Request Service <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" tabindex="0">
+          <div class="service-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+          <h3>Move-In / Move-Out</h3>
+          <p>Start fresh or leave on a good note — our move cleaning ensures a spotless transition.</p>
+          <a href="#contact" class="card-link">Request Service <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card" tabindex="0">
+          <div class="service-icon"><i class="fa-solid fa-calendar-days"></i></div>
+          <h3>Recurring Maintenance</h3>
+          <p>Set a schedule and forget the mess. We show up consistently so your space always shines.</p>
+          <a href="#contact" class="card-link">Request Service <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ WHY US ══ -->
+  <section id="why-us" class="section why-us" aria-labelledby="whyus-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow"><i class="fa-solid fa-award"></i> Our Promise</span>
+        <h2 id="whyus-title">Why Choose GCK Clean?</h2>
+        <p class="section-sub">We don't just clean — we care about the spaces you live and work in.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-icon"><i class="fa-solid fa-user-check"></i></div>
+          <div class="why-text">
+            <h4>Vetted Professionals</h4>
+            <p>Every cleaner is background-checked, trained, and held to our strict quality standard.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="fa-solid fa-leaf"></i></div>
+          <div class="why-text">
+            <h4>Eco-Friendly Products</h4>
+            <p>Safe, non-toxic cleaning products — better for your family, pets, and the planet.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="why-text">
+            <h4>Fully Insured</h4>
+            <p>Complete liability coverage on every job. Your property is always protected.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <div class="why-text">
+            <h4>Flexible Scheduling</h4>
+            <p>Morning, evening, weekends — we work around your life, not the other way around.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="fa-solid fa-thumbs-up"></i></div>
+          <div class="why-text">
+            <h4>Satisfaction Guaranteed</h4>
+            <p>Not happy? We'll come back and make it right — no questions asked.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="why-text">
+            <h4>Two Locations</h4>
+            <p>Serving Montréal and Markham — local teams who know and care about your community.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROCESS ══ -->
+  <section id="process" class="section process" aria-labelledby="process-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow"><i class="fa-solid fa-list-check"></i> How It Works</span>
+        <h2 id="process-title">Simple. Easy. Clean.</h2>
+        <p class="section-sub">Getting started takes less than 2 minutes.</p>
+      </div>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+          <h4>Request a Quote</h4>
+          <p>Fill out our quick form or give us a call. Tell us about your space and needs.</p>
+        </div>
+        <div class="step-connector" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <h4>Confirm &amp; Schedule</h4>
+          <p>We'll send a custom quote and lock in a time that works perfectly for you.</p>
+        </div>
+        <div class="step-connector" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+          <h4>We Clean</h4>
+          <p>Our vetted team arrives on time, equipped, and ready to make your space shine.</p>
+        </div>
+        <div class="step-connector" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-icon"><i class="fa-solid fa-face-smile"></i></div>
+          <h4>Enjoy the Sparkle</h4>
+          <p>Walk into a spotless space and relax — you've earned it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA BANNER ══ -->
+  <section class="section cta-banner" aria-label="Call to action">
+    <div class="container cta-inner">
+      <div class="cta-text">
+        <h2>Ready for a Cleaner Space?</h2>
+        <p>Book today and experience the GCK Clean difference. First-time clients get a complimentary consultation.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="#contact" class="btn btn-white btn-lg">
+          <i class="fa-solid fa-calendar-check"></i> Book Now
+        </a>
+        <a href="mailto:gckclean@gmail.com" class="btn btn-ghost btn-lg">
+          <i class="fa-solid fa-envelope"></i> Email Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LOCATIONS ══ -->
+  <section id="locations" class="section locations" aria-labelledby="locations-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow"><i class="fa-solid fa-map-pin"></i> Where We Are</span>
+        <h2 id="locations-title">Our Locations</h2>
+        <p class="section-sub">Two cities. One standard of excellence.</p>
+      </div>
+      <div class="locations-grid">
+        <div class="location-card">
+          <div class="location-header">
+            <div class="location-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <h3>Montréal, QC</h3>
+          </div>
+          <address>16 Prom. Ronald,<br />Montréal-Ouest, QC H4X 1M8</address>
+          <ul class="location-meta">
+            <li><i class="fa-solid fa-phone"></i><a href="tel:4372252916">437-225-2916</a></li>
+            <li><i class="fa-solid fa-envelope"></i><a href="mailto:gckclean@gmail.com">gckclean@gmail.com</a></li>
+          </ul>
+          <a href="https://www.google.com/maps/search/16+Prom.+Ronald+Montréal-Ouest+QC" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-map"></i> Get Directions
+          </a>
+        </div>
+        <div class="location-card">
+          <div class="location-header">
+            <div class="location-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <h3>Markham, ON</h3>
+          </div>
+          <address>615 Denison St,<br />Markham, ON L3R 1B8</address>
+          <ul class="location-meta">
+            <li><i class="fa-solid fa-phone"></i><a href="tel:4372252916">437-225-2916</a></li>
+            <li><i class="fa-solid fa-envelope"></i><a href="mailto:gckclean@gmail.com">gckclean@gmail.com</a></li>
+          </ul>
+          <a href="https://www.google.com/maps/search/615+Denison+St+Markham+ON" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-map"></i> Get Directions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT FORM ══ -->
+  <section id="contact" class="section contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow"><i class="fa-solid fa-paper-plane"></i> Get In Touch</span>
+        <h2 id="contact-title">Request a Free Quote</h2>
+        <p class="section-sub">We'll get back to you within 24 hours. No pressure, no commitment.</p>
+      </div>
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <h3><i class="fa-solid fa-address-card"></i> Contact Details</h3>
+          <ul class="contact-details">
+            <li>
+              <div class="ci-icon"><i class="fa-solid fa-phone"></i></div>
+              <div><strong>Phone</strong><a href="tel:4372252916">437-225-2916</a></div>
+            </li>
+            <li>
+              <div class="ci-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div><strong>Email</strong><a href="mailto:gckclean@gmail.com">gckclean@gmail.com</a></div>
+            </li>
+            <li>
+              <div class="ci-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div><strong>Montréal</strong><span>16 Prom. Ronald, Montréal-Ouest, QC H4X 1M8</span></div>
+            </li>
+            <li>
+              <div class="ci-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div><strong>Markham</strong><span>615 Denison St, Markham, ON L3R 1B8</span></div>
+            </li>
+          </ul>
+          <div class="contact-hours">
+            <h4><i class="fa-regular fa-clock"></i> Business Hours</h4>
+            <p>Monday – Friday: 8:00 AM – 6:00 PM</p>
+            <p>Saturday: 9:00 AM – 4:00 PM</p>
+            <p>Sunday: By appointment</p>
+          </div>
+        </div>
+
+        <form id="quoteForm" class="quote-form" novalidate aria-label="Quote request form">
+          <div class="hp-field" aria-hidden="true">
+            <input type="text" name="hp_name" autocomplete="off" tabindex="-1" />
+            <input type="text" name="hp_phone" autocomplete="off" tabindex="-1" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-name"><i class="fa-solid fa-user"></i> Full Name <span>*</span></label>
+              <input type="text" id="f-name" name="name" placeholder="Jane Doe" required minlength="2" maxlength="80" autocomplete="name" />
+              <span class="form-error" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="f-email"><i class="fa-solid fa-envelope"></i> Email <span>*</span></label>
+              <input type="email" id="f-email" name="email" placeholder="jane@example.com" required maxlength="100" autocomplete="email" />
+              <span class="form-error" role="alert"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-phone"><i class="fa-solid fa-phone"></i> Phone</label>
+              <input type="tel" id="f-phone" name="phone" placeholder="(437) 000-0000" maxlength="20" autocomplete="tel" />
+              <span class="form-error" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="f-city"><i class="fa-solid fa-city"></i> Your City <span>*</span></label>
+              <select id="f-city" name="city" required>
+                <option value="">— Select City —</option>
+                <option value="montreal">Montréal, QC</option>
+                <option value="markham">Markham, ON</option>
+                <option value="other">Other</option>
+              </select>
+              <span class="form-error" role="alert"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="f-service"><i class="fa-solid fa-broom"></i> Service Type <span>*</span></label>
+            <select id="f-service" name="service" required>
+              <option value="">— Select a Service —</option>
+              <option value="residential">Residential Cleaning</option>
+              <option value="commercial">Commercial Cleaning</option>
+              <option value="deep">Deep Cleaning</option>
+              <option value="post-construction">Post-Construction</option>
+              <option value="move">Move-In / Move-Out</option>
+              <option value="recurring">Recurring Maintenance</option>
+            </select>
+            <span class="form-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="f-message"><i class="fa-solid fa-comment"></i> Additional Details</label>
+            <textarea id="f-message" name="message" placeholder="Tell us about your space, special requests, preferred days..." rows="4" maxlength="1000"></textarea>
+          </div>
+          <div id="formFeedback" class="form-feedback" aria-live="polite" role="status"></div>
+          <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span class="btn-text">Send Quote Request</span>
+            <span class="btn-loading" aria-hidden="true"><i class="fa-solid fa-spinner fa-spin"></i> Sending…</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-grid">
+
+      <!-- Brand column -->
+      <div class="footer-brand">
+        <img src="logo.png" alt="GCK Clean Logo" width="80" loading="lazy" />
+        <p class="footer-tagline">Sparkle With Care.</p>
+        <p class="footer-desc">Professional cleaning services in Montréal &amp; Markham, dedicated to quality and care.</p>
+      </div>
+
+      <!-- Navigation column -->
+      <div class="footer-col">
+        <h5 class="footer-col-title"><i class="fa-solid fa-link"></i> Quick Links</h5>
+        <nav aria-label="Footer navigation">
+          <ul>
+            <li><a href="#services"><i class="fa-solid fa-broom"></i> Services</a></li>
+            <li><a href="#why-us"><i class="fa-solid fa-award"></i> Why Us</a></li>
+            <li><a href="#process"><i class="fa-solid fa-list-check"></i> Process</a></li>
+            <li><a href="#locations"><i class="fa-solid fa-map-pin"></i> Locations</a></li>
+            <li><a href="#contact"><i class="fa-solid fa-paper-plane"></i> Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Contact column -->
+      <div class="footer-col">
+        <h5 class="footer-col-title"><i class="fa-solid fa-address-book"></i> Get In Touch</h5>
+        <ul class="footer-contact-list">
+          <li><i class="fa-solid fa-phone"></i><a href="tel:4372252916">437-225-2916</a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="mailto:gckclean@gmail.com">gckclean@gmail.com</a></li>
+          <li><i class="fa-solid fa-location-dot"></i><span>16 Prom. Ronald, Montréal-Ouest, QC H4X 1M8</span></li>
+          <li><i class="fa-solid fa-location-dot"></i><span>615 Denison St, Markham, ON L3R 1B8</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p class="footer-copy">&copy; <span id="year"></span> GCK Clean. All rights reserved.</p>
+        <p class="footer-tax">
+          <span>TPS: 763758273 RT 0001</span>
+          <span class="tax-sep">·</span>
+          <span>TVQ: 1536667641 TQ 0001</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
