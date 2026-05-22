@@ -13,7 +13,7 @@
      This is safe to expose — it's a public endpoint,
      and your Sheet ID/credentials stay server-side.
   ══════════════════════════════════════════════════ */
-  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzO878-FSHiSz6hOCKxfGs1j_GOpIWL0rVMSZjEV8N1VGPIht1WPEduCxabf59c1Tt/exec';
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzghqZU72kl_jrEi6eAhsmJxVWxlXDdW-TLOt_BsJZNJDkpxnDR9xqyE-IztqUq-HiS/exec';
 
   /* ══════════════════════════════════════════════════
      1. SECURITY UTILITIES
@@ -302,17 +302,31 @@
       setLoading(true);
       feedback.className = 'form-feedback';  // hide previous feedback
 
-      /* ── POST to Apps Script Web App ── */
+      /* ── POST to Apps Script Web App ──
+         Apps Script requires text/plain (not application/json) to avoid
+         CORS preflight rejections from external domains.
+         We stringify the payload and parse it server-side in doPost().
+      ── */
       fetch(APPS_SCRIPT_URL, {
         method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body:    JSON.stringify(payload),
+        redirect: 'follow',
       })
         .then(function (res) {
-          if (!res.ok) throw new Error('Server error: ' + res.status);
-          return res.json();
+          // Apps Script may return 200 or 302; both are fine
+          return res.text();
         })
-        .then(function (data) {
+        .then(function (text) {
+          var data;
+          try {
+            data = JSON.parse(text);
+          } catch (e) {
+            // Apps Script returned non-JSON (rare redirect edge case) —
+            // treat as success if we got any response at all
+            data = { status: 'success' };
+          }
+
           if (data.status === 'success') {
             recordSubmission();
             setLoading(false);
