@@ -19,20 +19,7 @@
      1. SECURITY UTILITIES
      ══════════════════════════════════════════════════ */
 
-  function sanitize(str) {
-    if (typeof str !== 'string') return '';
-    return str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#x27;')
-      .replace(/\//g, '&#x2F;')
-      .replace(/`/g, '&#x60;')
-      .replace(/=/g, '&#x3D;')
-      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
-      .trim();
-  }
+  function sanitize(str) { if (typeof str !== 'string') return ''; return str .replace(/&/g, '&amp;') .replace(/</g, '&lt;') .replace(/>/g, '&gt;') .replace(/"/g, '&quot;') .replace(/'/g, '&#39;') .replace(/[\x00-\x1F\x7F]/g, '') .trim(); }
 
   var INJECTION_PATTERNS = [
     /<script[\s\S]*?>/i,
