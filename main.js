@@ -314,7 +314,9 @@
         redirect: 'follow',
       })
         .then(function (res) {
-          // Apps Script may return 200 or 302; both are fine
+          if(!res.ok) {
+            throw new Error('HTTP Error: ' + res.status);
+          }
           return res.text();
         })
         .then(function (text) {
@@ -342,7 +344,10 @@
         })
         .catch(function (err) {
           setLoading(false);
-          console.error('GCK form error:', err);
+          console.error('GCK form error:', {
+            message: err.message,
+            stack: err.stack
+          });
           showFeedback(
             'error',
             'Something went wrong while sending your request. ' +
