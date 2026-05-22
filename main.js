@@ -13,13 +13,26 @@
      This is safe to expose — it's a public endpoint,
      and your Sheet ID/credentials stay server-side.
   ══════════════════════════════════════════════════ */
-  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzfWmZv3Rxe6B-V-Rlc-g-3R1rwGc3F0gGx6Wz8ScidKeIH9GVRYq9sPGZGBRV08eu4/exec';
+  var APPS_SCRIPT_URL = 'hhttps://script.google.com/macros/s/AKfycbx0MIr-laZV3gxMDy8H1vuMY-egTwLOsQW165vgBcYWdTqL1vmpH_py94OahUys1oeU/exec';
 
   /* ══════════════════════════════════════════════════
      1. SECURITY UTILITIES
      ══════════════════════════════════════════════════ */
 
-  function sanitize(str) { if (typeof str !== 'string') return ''; return str .replace(/&/g, '&amp;') .replace(/</g, '&lt;') .replace(/>/g, '&gt;') .replace(/"/g, '&quot;') .replace(/'/g, '&#39;') .replace(/[\x00-\x1F\x7F]/g, '') .trim(); }
+  function sanitize(str) {
+    if (typeof str !== 'string') return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;')
+      .replace(/\//g, '&#x2F;')
+      .replace(/`/g, '&#x60;')
+      .replace(/=/g, '&#x3D;')
+      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
+      .trim();
+  }
 
   var INJECTION_PATTERNS = [
     /<script[\s\S]*?>/i,
