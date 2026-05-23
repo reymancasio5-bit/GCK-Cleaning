@@ -13,7 +13,7 @@
      This is safe to expose — it's a public endpoint,
      and your Sheet ID/credentials stay server-side.
   ══════════════════════════════════════════════════ */
-  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxDVtiR0PnEFEedP7WnL5rugbeOJyCe1kCzXlEGgHovwS3mMhpahD4r3KqmdwPIlk4/exec';
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/library/d/1zxqhFeghKHfw4auOec-rledtajXypp1w4VTWpDEvvfaoABQVrLMa7Agf/15';
 
   /* ══════════════════════════════════════════════════
      1. SECURITY UTILITIES
