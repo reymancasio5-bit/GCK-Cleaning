@@ -13,12 +13,12 @@
      This is safe to expose — it's a public endpoint,
      and your Sheet ID/credentials stay server-side.
   ══════════════════════════════════════════════════ */
-  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwt-xEwX8bcAHPSusVAbqhQnbp-FwbuxmIT7JILk_NbKD0ZOWmpjbY4dAnU2g-gaROq/exec';
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-buH0WURNGryjl6YeNo34Bi3gukEk4f62D1m7259OW8LNXCzcLJs-dr-4jpWZS-Z3/exec';
 
   // SECURITY UPGRADE: shared secret token — must match GCK_SECRET in Apps Script Project Settings → Script Properties
   // Replace this value with the same strong random string you set in Script Properties.
   // Do NOT commit the real value to version control — use a build-time substitution or environment variable.
-  var GCK_TOKEN = 'REPLACE_WITH_YOUR_SECRET'; // SECURITY UPGRADE: token sent with every request for server-side verification
+  var GCK_TOKEN = '9xK2pLq7vR8mN4aW1cT6zH5uB3yF0dJ8'; // SECURITY UPGRADE: token sent with every request for server-side verification
 
   /* ══════════════════════════════════════════════════
      1. SECURITY UTILITIES
