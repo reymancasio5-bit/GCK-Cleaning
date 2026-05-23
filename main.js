@@ -13,7 +13,12 @@
      This is safe to expose — it's a public endpoint,
      and your Sheet ID/credentials stay server-side.
   ══════════════════════════════════════════════════ */
-  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzH1pth58P8heyb4qifmrzaZ8FXi_K8yvyhy2G3QW9LQjFqltqcNYxbQIzmbcEuK62J/exec';
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwt-xEwX8bcAHPSusVAbqhQnbp-FwbuxmIT7JILk_NbKD0ZOWmpjbY4dAnU2g-gaROq/exec';
+
+  // SECURITY UPGRADE: shared secret token — must match GCK_SECRET in Apps Script Project Settings → Script Properties
+  // Replace this value with the same strong random string you set in Script Properties.
+  // Do NOT commit the real value to version control — use a build-time substitution or environment variable.
+  var GCK_TOKEN = 'REPLACE_WITH_YOUR_SECRET'; // SECURITY UPGRADE: token sent with every request for server-side verification
 
   /* ══════════════════════════════════════════════════
      1. SECURITY UTILITIES
@@ -302,6 +307,7 @@
       for (var i = 0; i < allInputs.length; i++) {
         var f = allInputs[i];
         if (f.name && f.name.indexOf('hp_') === 0) continue;
+        if (f.name === 'token' || f.name === 'origin') continue; // SECURITY UPGRADE: skip internal security fields — these are not user inputs and must not be flagged
         if (isMalicious(f.value)) {
           showFeedback('error', 'Invalid characters detected. Please review your input.');
           return;
@@ -316,6 +322,8 @@
         city:    sanitize(form.querySelector('#f-city').value),
         service: sanitize(form.querySelector('#f-service').value),
         message: sanitize(form.querySelector('#f-message').value),
+        token:   GCK_TOKEN,                 // SECURITY UPGRADE: include shared secret for server-side token verification
+        origin:  window.location.origin,    // SECURITY UPGRADE: include page origin for server-side origin check
       };
 
       setLoading(true);
