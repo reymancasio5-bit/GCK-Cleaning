@@ -10,8 +10,8 @@
                  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
                  font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
                  img-src 'self' data: https://images.unsplash.com https://raw.githubusercontent.com;
-                 connect-src 'self' 
-                  https://script.google.com 
+                 connect-src 'self'
+                  https://script.google.com
                   https://script.googleusercontent.com
                   https://*.googleusercontent.com
                   https://*.google.com;
@@ -20,7 +20,6 @@
                  base-uri 'self';
                  frame-ancestors 'self';
     " />
-  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self';">
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
@@ -136,12 +135,15 @@
           <p>Dust, debris, and residue removed after renovations — leaving your new space truly ready.</p>
           <a href="#contact" class="card-link">Request Service <i class="fa-solid fa-arrow-right"></i></a>
         </article>
+
+        <!-- ══ UPDATED: Auto Detailing (replaces Move-In / Move-Out) ══ -->
         <article class="service-card" tabindex="0">
-          <div class="service-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
-          <h3>Move-In / Move-Out</h3>
-          <p>Start fresh or leave on a good note — our move cleaning ensures a spotless transition.</p>
+          <div class="service-icon"><i class="fa-solid fa-car"></i></div>
+          <h3>Auto Detailing</h3>
+          <p>Full interior and exterior vehicle detailing — deep vacuuming, upholstery cleaning, dashboard wipe-down, and exterior wash to restore your car's showroom finish.</p>
           <a href="#contact" class="card-link">Request Service <i class="fa-solid fa-arrow-right"></i></a>
         </article>
+
         <article class="service-card" tabindex="0">
           <div class="service-icon"><i class="fa-solid fa-calendar-days"></i></div>
           <h3>Recurring Maintenance</h3>
@@ -413,7 +415,7 @@
               <option value="commercial">Commercial Cleaning</option>
               <option value="deep">Deep Cleaning</option>
               <option value="post-construction">Post-Construction</option>
-              <option value="move">Move-In / Move-Out</option>
+              <option value="auto-detailing">Auto Detailing</option>
               <option value="recurring">Recurring Maintenance</option>
             </select>
             <span class="form-error" role="alert"></span>

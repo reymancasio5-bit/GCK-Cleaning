@@ -13,11 +13,11 @@
      This is safe to expose — it's a public endpoint,
      and your Sheet ID/credentials stay server-side.
   ══════════════════════════════════════════════════ */
-  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0MIr-laZV3gxMDy8H1vuMY-egTwLOsQW165vgBcYWdTqL1vmpH_py94OahUys1oeU/exec';
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGCATIlwjnWwJw6zm7PhSu4DjEUmDrDDQH37lR27xE0-6Ft-AXuyKfZftRwdUNCyZt/exec';
 
   /* ══════════════════════════════════════════════════
      1. SECURITY UTILITIES
-     ══════════════════════════════════════════════════ */
+  ══════════════════════════════════════════════════ */
 
   function sanitize(str) {
     if (typeof str !== 'string') return '';
@@ -63,24 +63,30 @@
     return false;
   }
 
-  var RATE_LIMIT_MAX = 3;
+  var RATE_LIMIT_MAX    = 3;
   var RATE_LIMIT_WINDOW = 600000; // 10 minutes
 
   function isRateLimited() {
-    var raw = sessionStorage.getItem('gck_submit_times');
-    var times = raw ? JSON.parse(raw) : [];
-    var now = Date.now();
-    times = times.filter(function (t) { return now - t < RATE_LIMIT_WINDOW; });
-    return times.length >= RATE_LIMIT_MAX;
+    try {
+      var raw   = sessionStorage.getItem('gck_submit_times');
+      var times = raw ? JSON.parse(raw) : [];
+      var now   = Date.now();
+      times = times.filter(function (t) { return now - t < RATE_LIMIT_WINDOW; });
+      return times.length >= RATE_LIMIT_MAX;
+    } catch (e) {
+      return false;
+    }
   }
 
   function recordSubmission() {
-    var raw = sessionStorage.getItem('gck_submit_times');
-    var times = raw ? JSON.parse(raw) : [];
-    var now = Date.now();
-    times = times.filter(function (t) { return now - t < RATE_LIMIT_WINDOW; });
-    times.push(now);
-    sessionStorage.setItem('gck_submit_times', JSON.stringify(times));
+    try {
+      var raw   = sessionStorage.getItem('gck_submit_times');
+      var times = raw ? JSON.parse(raw) : [];
+      var now   = Date.now();
+      times = times.filter(function (t) { return now - t < RATE_LIMIT_WINDOW; });
+      times.push(now);
+      sessionStorage.setItem('gck_submit_times', JSON.stringify(times));
+    } catch (e) { /* sessionStorage unavailable — silent fail */ }
   }
 
   var botSignals = {
@@ -95,14 +101,14 @@
   document.addEventListener('touchstart', function () { botSignals.mouseMoved = true; },   { once: true, passive: true });
 
   function looksLikeBot() {
-    var hasInteraction = botSignals.mouseMoved || botSignals.keyPressed;
+    var hasInteraction = botSignals.mouseMoved || botSignals.keyPressed || botSignals.fieldFocused;
     var timeOnPage     = Date.now() - botSignals.pageLoadTime;
     return !hasInteraction || timeOnPage < 4000;
   }
 
   /* ══════════════════════════════════════════════════
      2. NAVIGATION
-     ══════════════════════════════════════════════════ */
+  ══════════════════════════════════════════════════ */
 
   var navbar    = document.getElementById('navbar');
   var navToggle = document.getElementById('navToggle');
@@ -163,7 +169,7 @@
 
   /* ══════════════════════════════════════════════════
      3. SCROLL ANIMATIONS
-     ══════════════════════════════════════════════════ */
+  ══════════════════════════════════════════════════ */
 
   var observerOptions = { threshold: 0.12, rootMargin: '0px 0px -40px 0px' };
 
@@ -190,7 +196,11 @@
 
   /* ══════════════════════════════════════════════════
      4. CONTACT FORM — Google Apps Script submission
-     ══════════════════════════════════════════════════ */
+     ══════════════════════════════════════════════════
+     Apps Script requires Content-Type: text/plain to
+     avoid CORS preflight failures. We send a JSON
+     string and parse it in doPost() server-side.
+  ══════════════════════════════════════════════════ */
 
   var form      = document.getElementById('quoteForm');
   var submitBtn = document.getElementById('submitBtn');
@@ -206,17 +216,20 @@
     });
 
     // Live validation on blur / input
-    form.querySelectorAll('input[required], select[required], textarea[required]').forEach(function (field) {
+    form.querySelectorAll('input[required], select[required]').forEach(function (field) {
       field.addEventListener('blur',  function () { validateField(field); });
       field.addEventListener('input', function () {
         if (field.classList.contains('error')) validateField(field);
+      });
+      field.addEventListener('change', function () {
+        if (field.tagName === 'SELECT') validateField(field);
       });
     });
 
     function validateField(field) {
       var val = field.value.trim();
-      var err = field.parentElement.querySelector('.form-error');
-      var msg = '';
+      var errEl = field.parentElement.querySelector('.form-error');
+      var msg   = '';
 
       if (isMalicious(val)) {
         msg = 'Invalid characters detected.';
@@ -225,16 +238,20 @@
       } else if (field.type === 'email' && val) {
         var emailRx = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
         if (!emailRx.test(val)) msg = 'Please enter a valid email address.';
+      } else if (field.type === 'tel' && val) {
+        // Allow digits, spaces, dashes, parentheses, plus — min 7 digits
+        var digits = val.replace(/\D/g, '');
+        if (digits.length < 7) msg = 'Please enter a valid phone number.';
       }
 
-      if (err) err.textContent = msg;
+      if (errEl) errEl.textContent = msg;
       field.classList.toggle('error', !!msg);
       return !msg;
     }
 
     function validateForm() {
       var valid = true;
-      form.querySelectorAll('input[required], select[required], textarea[required]').forEach(function (field) {
+      form.querySelectorAll('input[required], select[required]').forEach(function (field) {
         if (!validateField(field)) valid = false;
       });
       return valid;
@@ -247,8 +264,10 @@
     }
 
     function showFeedback(type, msg) {
-      feedback.className = 'form-feedback ' + type;
+      feedback.className  = 'form-feedback ' + type;
       feedback.textContent = msg;
+      // Scroll feedback into view on mobile
+      feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     function setLoading(state) {
@@ -260,16 +279,16 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      // Security gates
+      // — Security gates —
       if (honeypotTripped()) return;
 
       if (looksLikeBot()) {
-        showFeedback('error', 'Automated submissions are not allowed.');
+        showFeedback('error', 'Automated submissions are not allowed. Please interact with the page first.');
         return;
       }
 
       if (isRateLimited()) {
-        showFeedback('error', 'Too many requests. Please wait before submitting again.');
+        showFeedback('error', 'Too many requests. Please wait a few minutes before submitting again.');
         return;
       }
 
@@ -278,18 +297,18 @@
         return;
       }
 
-      // Deep malicious content scan
+      // Deep malicious content scan across all fields
       var allInputs = form.querySelectorAll('input, select, textarea');
       for (var i = 0; i < allInputs.length; i++) {
         var f = allInputs[i];
-        if (f.name.startsWith('hp_')) continue;
+        if (f.name && f.name.indexOf('hp_') === 0) continue;
         if (isMalicious(f.value)) {
           showFeedback('error', 'Invalid characters detected. Please review your input.');
           return;
         }
       }
 
-      // Build payload (sanitized)
+      // Build sanitised payload
       var payload = {
         name:    sanitize(form.querySelector('#f-name').value),
         email:   sanitize(form.querySelector('#f-email').value),
@@ -300,58 +319,75 @@
       };
 
       setLoading(true);
-      feedback.className = 'form-feedback';  // hide previous feedback
+      feedback.className   = 'form-feedback'; // hide previous
+      feedback.textContent = '';
 
-      /* ── POST to Apps Script Web App ──
-         Apps Script requires text/plain (not application/json) to avoid
-         CORS preflight rejections from external domains.
-         We stringify the payload and parse it server-side in doPost().
+      /* ── POST to Apps Script Web App ──────────────────────────
+         • Content-Type MUST be text/plain to avoid the CORS
+           preflight (OPTIONS) that Apps Script does not handle.
+         • mode: 'no-cors' is intentionally NOT used — it prevents
+           reading the response. Instead we use redirect:'follow'
+           which handles the Apps Script 302 redirect transparently.
+         • We send JSON as a plain-text body string and parse it
+           inside doPost() with e.postData.contents.
       ── */
       fetch(APPS_SCRIPT_URL, {
-        method:  'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body:    JSON.stringify(payload),
+        method:   'POST',
+        headers:  { 'Content-Type': 'text/plain;charset=utf-8' },
+        body:     JSON.stringify(payload),
         redirect: 'follow',
       })
         .then(function (res) {
-          if(!res.ok) {
-            throw new Error('HTTP Error: ' + res.status);
+          // Apps Script always returns 200 even on logic errors;
+          // non-200 means a network/infrastructure failure.
+          if (!res.ok) {
+            throw new Error('Network error — HTTP ' + res.status);
           }
           return res.text();
         })
         .then(function (text) {
           var data;
           try {
-            data = JSON.parse(text);
-          } catch (e) {
-            // Apps Script returned non-JSON (rare redirect edge case) —
-            // treat as success if we got any response at all
+            // Strip any stray BOM / whitespace before parsing
+            data = JSON.parse(text.trim());
+          } catch (parseErr) {
+            // Apps Script occasionally wraps the response in an
+            // HTML redirect page on first deploy. Any non-error
+            // response that we can't parse is treated as success
+            // because the sheet append already happened.
             data = { status: 'success' };
           }
 
+          setLoading(false);
+
           if (data.status === 'success') {
             recordSubmission();
-            setLoading(false);
             showFeedback(
               'success',
               '✓ Thank you, ' + payload.name + '! Your quote request has been received. ' +
-              'We\'ve sent a confirmation to ' + payload.email + ' and will be in touch within 24 hours.'
+              'We\'ve sent a confirmation to ' + payload.email +
+              ' and will be in touch within 24 hours.'
             );
             form.reset();
+            // Clear any lingering validation states
+            form.querySelectorAll('.error').forEach(function (el) {
+              el.classList.remove('error');
+            });
+            form.querySelectorAll('.form-error').forEach(function (el) {
+              el.textContent = '';
+            });
           } else {
-            throw new Error(data.message || 'Submission failed.');
+            throw new Error(data.message || 'Submission failed — please try again.');
           }
         })
         .catch(function (err) {
           setLoading(false);
-          console.error('GCK form error:', {
-            message: err.message,
-            stack: err.stack
-          });
+          console.error('[GCK Clean] Form submission error:', err.message);
           showFeedback(
             'error',
             'Something went wrong while sending your request. ' +
-            'Please try again or contact us directly at gckclean@gmail.com.'
+            'Please try again or contact us directly at ' +
+            'gckclean@gmail.com or 437-225-2916.'
           );
         });
     });
@@ -359,14 +395,14 @@
 
   /* ══════════════════════════════════════════════════
      5. FOOTER YEAR
-     ══════════════════════════════════════════════════ */
+  ══════════════════════════════════════════════════ */
 
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ══════════════════════════════════════════════════
      6. ACTIVE NAV LINK
-     ══════════════════════════════════════════════════ */
+  ══════════════════════════════════════════════════ */
 
   var sections = document.querySelectorAll('section[id]');
   var navLinks = document.querySelectorAll('.nav-link');
@@ -390,7 +426,7 @@
 
   /* ══════════════════════════════════════════════════
      7. PREVENT FILE DROP
-     ══════════════════════════════════════════════════ */
+  ══════════════════════════════════════════════════ */
 
   document.addEventListener('dragover', function (e) { e.preventDefault(); });
   document.addEventListener('drop',     function (e) { e.preventDefault(); });
